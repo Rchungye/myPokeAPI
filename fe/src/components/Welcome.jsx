@@ -3,10 +3,8 @@ import { useNavigate } from "react-router-dom";
 import logo from '../assets/PokeAPI_logo.png'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -136,17 +134,6 @@ function Welcome() {
                   ))}
                 </div>
               </CardContent>
-
-              <CardActions className="justify-center pb-4">
-                <Button
-                  size="small"
-                  variant="contained"
-                  className="bg-[#285D85] hover:bg-[#214a68]"
-                  onClick={() => console.log('Details for:', pokemon.nombre)}
-                >
-                  Learn More
-                </Button>
-              </CardActions>
             </Card>
           </Grid>
         ))}
