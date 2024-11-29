@@ -1,8 +1,8 @@
-# myPokeAPI Project by Rchungye
+# myPokeAPI Project
 
 Este proyecto utiliza datos de la la pagina **[PokeAPI.co](https://pokeapi.co/)** para crear una solución completa que incluye la extracción, transformación y carga de datos (ETL), el desarrollo de una API RESTful, y una aplicación web para visualizar la información.
 
-## Tecnologías
+## Tecnologías utilizadas
 
 - MySQL
 - Python con Flask
@@ -38,7 +38,7 @@ Sobre la carpeta /fe
 - Correr el comando **npm run dev** para preparar los componentes Vite + React.js y permanecer escuchando los cambios sobre los componentes de React.js
 - Ya se debería tener el Frontend ejecutado.
 
-### Problemas comunes
+## Problemas comunes
 
 Si no puedes activar el Enviorement del Python y tienes un error con el ExecutionPolicy debe ejecutar uno de los siguientes comandos en el Powershell:
 - **Set-ExecutionPolicy Unrestricted -Scope CurrentUser**
