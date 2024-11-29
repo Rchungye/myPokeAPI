@@ -43,7 +43,7 @@ class Pokemon(db.Model):
     created_at = db.Column(db.DateTime(), nullable=False, default=datetime.now())
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.now(), onupdate=datetime.now())
     moves = db.relationship('Move', secondary=pokemon_move, back_populates='pokemons')
-    abilities = db.relationship('Ability', secondary=pokemon_ability, back_populates='abilities')
+    abilities = db.relationship('Ability', secondary=pokemon_ability, back_populates='pokemons')  # Changed this line
     types = db.relationship('TypePkm', secondary=pokemon_type, back_populates='pokemons')
 
     def as_dict(self):

@@ -15,7 +15,7 @@ class Ability(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(20), nullable=False)
     descripcion = db.Column(db.String(200), nullable=False)
-    pokemons = db.relationship('Pokemon', secondary=pokemon_ability, back_populates='abilities')
+    pokemons = db.relationship('Pokemon', secondary=pokemon_ability, back_populates='abilities')  # This matches now
     created_at = db.Column(db.DateTime(), nullable=False, default=datetime.now())
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.now(), onupdate=datetime.now())
 
