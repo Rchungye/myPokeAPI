@@ -51,3 +51,8 @@ Si no puedes activar el Enviorement del Python y tienes un error con el Executio
 - - **Set-ExecutionPolicy Unrestricted -Scope Process**
 - Luego puede volver a reestablecerlo con el siguiente comando **set-executionpolicy remotesigned**
 - Ahora solamente debe de utilizar en la terminal de visual code lo siguiente **./activate**
+
+## ENLACES DE LOS DOCUMENTOS
+
+**[Enlace del documento](https://utpac-my.sharepoint.com/:b:/g/personal/rafael_chung_utp_ac_pa/EdKbnyhU85ZItu9Fm5Yg9H8Bwng1WAuUzOSxTRAWL5A5Ng?e=kLME2q)**
+**[Enlace de la presentacion](https://utpac-my.sharepoint.com/:b:/g/personal/rafael_chung_utp_ac_pa/EeqRPUW83hRBowzaoNt0TSIBNUTm__9xYOD788R3zTPYIA?e=WdMigh)**
