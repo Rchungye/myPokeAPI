@@ -6,3 +6,9 @@ from app.Controllers import (
 )
 
 
+@app.route("/pokemon/all", methods=["GET"])
+def GetAllPokemon():
+    result = Pokemon.GetAllPkm()
+    return result.jsonify()
+
+

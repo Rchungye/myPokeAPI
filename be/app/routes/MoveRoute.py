@@ -6,3 +6,8 @@ from app.Controllers import (
 )
 
 
+@app.route("/move/all", methods=["GET"])
+def GetAllMove():
+    result = Move.GetAllMove()
+    return result.jsonify()
+

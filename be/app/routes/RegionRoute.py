@@ -6,3 +6,7 @@ from app.Controllers import (
 )
 
 
+@app.route("/region/all", methods=["GET"])
+def GetAllRegion():
+    result = Region.GetAllRegion()
+    return result.jsonify()
