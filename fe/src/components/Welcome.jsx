@@ -53,7 +53,7 @@ function Welcome() {
   }
 
   return (
-    <div className="min-h-screen bg-white p-8">
+    <div className="min-h-screen p-8">
       <div className="flex flex-col items-center mb-12">
         <img src={logo} alt="PokeAPI Logo" className="h-32 w-auto mb-8" />
       </div>
