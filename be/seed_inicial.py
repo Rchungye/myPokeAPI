@@ -1,165 +1,146 @@
 import requests
 from app import db, app
 from sqlalchemy import insert
-from app.Models.Pkm import Pokemon, TypePkm
-from app.Models.Ability import Ability
-from app.Models.Move import Move, TypeMove
-
-def fetch_data(url):
-    """Helper function to fetch data from PokeAPI"""
-    response = requests.get(url)
-    return response.json()
-
-def seed_pokemon_types():
-    """Fetch and insert all Pokemon types"""
-    print("Seeding Pokemon types...")
-    types_data = fetch_data('https://pokeapi.co/api/v2/type')
-    
-    for type_entry in types_data['results']:
-        type_detail = fetch_data(type_entry['url'])
-        type_pkm = TypePkm(
-            nombre=type_detail['name']
-        )
-        db.session.add(type_pkm)
-    
-    db.session.commit()
-    print("Pokemon types seeded successfully!")
-
-def seed_move_types():
-    """Fetch and insert move types (same as pokemon types in PokeAPI)"""
-    print("Seeding move types...")
-    types_data = fetch_data('https://pokeapi.co/api/v2/type')
-    
-    for type_entry in types_data['results']:
-        type_move = TypeMove(
-            nombre=type_entry['name']
-        )
-        db.session.add(type_move)
-    
-    db.session.commit()
-    print("Move types seeded successfully!")
-
-def seed_moves():
-    """Fetch and insert 165 moves from gen 1"""
-    print("Seeding moves...")
-    moves_data = fetch_data('https://pokeapi.co/api/v2/move?limit=165')
-    
-    type_moves = {type_move.nombre: type_move.id for type_move in TypeMove.query.all()}
-    
-    for move_entry in moves_data['results']:
-        move_detail = fetch_data(move_entry['url'])
-        if move_detail['generation']['name'] == 'generation-i':
-            description = next((effect['effect'] for effect in move_detail['effect_entries'] 
-                            if effect['language']['name'] == 'en'), 'No description available')
-            # Truncar la descripción si es necesario
-            description = description[:997] + '...' if len(description) > 1000 else description
-            
-            move = Move(
-                nombre=move_detail['name'],
-                damage=move_detail['power'] if move_detail['power'] is not None else 0,
-                type_move_id=type_moves[move_detail['type']['name']],
-                descripcion=description
-            )
-            db.session.add(move)
-    
-    db.session.commit()
-    print("Moves seeded successfully!")
-
-def seed_abilities():
-    """Fetch and insert abilities for the first 151 Pokemon"""
-    print("Seeding abilities...")
-    seen_abilities = set()
-    
-    # Fetch all Pokemon first
-    pokemon_data = fetch_data('https://pokeapi.co/api/v2/pokemon?limit=151')
-    
-    for pokemon_entry in pokemon_data['results']:
-        pokemon_detail = fetch_data(pokemon_entry['url'])
-        
-        for ability_info in pokemon_detail['abilities']:
-            ability_name = ability_info['ability']['name']
-            
-            if ability_name not in seen_abilities:
-                ability_detail = fetch_data(ability_info['ability']['url'])
-                ability = Ability(
-                    nombre=ability_name,
-                    descripcion=next((effect['effect'] for effect in ability_detail['effect_entries'] 
-                                    if effect['language']['name'] == 'en'), 'No description available')
-                )
-                db.session.add(ability)
-                seen_abilities.add(ability_name)
-    
-    db.session.commit()
-    print("Abilities seeded successfully!")
-
-def seed_pokemon():
-    """Fetch and insert the first 151 Pokemon with their relationships"""
-    print("Seeding Pokemon...")
-    pokemon_data = fetch_data('https://pokeapi.co/api/v2/pokemon?limit=151')
-    
-    # Create lookup dictionaries
-    types = {type_pkm.nombre: type_pkm for type_pkm in TypePkm.query.all()}
-    moves = {move.nombre: move for move in Move.query.all()}
-    abilities = {ability.nombre: ability for ability in Ability.query.all()}
-    
-    for pokemon_entry in pokemon_data['results']:
-        pokemon_detail = fetch_data(pokemon_entry['url'])
-        
-        pokemon = Pokemon(
-            nombre=pokemon_detail['name'],
-            hp=pokemon_detail['stats'][0]['base_stat'],
-            attack=pokemon_detail['stats'][1]['base_stat'],
-            defense=pokemon_detail['stats'][2]['base_stat'],
-            special_attack=pokemon_detail['stats'][3]['base_stat'],
-            special_defense=pokemon_detail['stats'][4]['base_stat'],
-            speed=pokemon_detail['stats'][5]['base_stat'],
-            weight=pokemon_detail['weight'] / 10  # Convert to kg
-        )
-        
-        # Add types
-        for type_info in pokemon_detail['types']:
-            type_name = type_info['type']['name']
-            if type_name in types:
-                pokemon.types.append(types[type_name])
-        
-        # Add moves (only gen 1 moves)
-        for move_info in pokemon_detail['moves']:
-            move_name = move_info['move']['name']
-            if move_name in moves:
-                pokemon.moves.append(moves[move_name])
-        
-        # Add abilities
-        for ability_info in pokemon_detail['abilities']:
-            ability_name = ability_info['ability']['name']
-            if ability_name in abilities:
-                pokemon.abilities.append(abilities[ability_name])
-        
-        db.session.add(pokemon)
-    
-    db.session.commit()
-    print("Pokemon seeded successfully!")
+from app.Models.Pkm import Pokemon, TypePkm, pokemon_type
+from app.Models.Move import Move, TypeMove, pokemon_move
+from app.Models.Ability import Ability, pokemon_ability
 
 def seed_db():
-    """Main function to seed the database"""
     with app.app_context():
-        print("Starting database seeding...")
-        
         # Clear existing data
+        print("\nCleaning existing data...")
+        db.session.query(pokemon_move).delete()
+        db.session.query(pokemon_type).delete()
+        db.session.query(pokemon_ability).delete()
         Move.query.delete()
-        Ability.query.delete()
-        Pokemon.query.delete()
         TypeMove.query.delete()
+        Pokemon.query.delete()
         TypePkm.query.delete()
+        Ability.query.delete()
         db.session.commit()
+
+        # Seed Pokemon Types
+        print("\nSeeding Pokemon Types...")
+        type_response = requests.get('https://pokeapi.co/api/v2/type')
+        types_data = type_response.json()['results']
+        type_map = {}  # To store type_name: type_id mapping
         
-        # Seed in order of dependencies
-        seed_pokemon_types()
-        seed_move_types()
-        seed_moves()
-        seed_abilities()
-        seed_pokemon()
+        for type_data in types_data:
+            new_type = TypePkm(nombre=type_data['name'])
+            db.session.add(new_type)
+            db.session.flush()
+            type_map[type_data['name']] = new_type.id
+            print(f"Added Type: {type_data['name']}")
+        db.session.commit()
+
+        # Seed Move Types
+        print("\nSeeding Move Types...")
+        move_type_map = {}  # To store type_name: type_id mapping
+        for type_name in type_map.keys():
+            new_move_type = TypeMove(nombre=type_name)
+            db.session.add(new_move_type)
+            db.session.flush()
+            move_type_map[type_name] = new_move_type.id
+            print(f"Added Move Type: {type_name}")
+        db.session.commit()
+
+        # Seed Moves (Generation 1)
+        print("\nSeeding Moves...")
+        moves_response = requests.get('https://pokeapi.co/api/v2/move?limit=165')
+        moves_data = moves_response.json()['results']
+        move_map = {}  # To store move_name: move_id mapping
         
-        print("Database seeding completed successfully!")
+        for move_url in moves_data:
+            move_detail = requests.get(move_url['url']).json()
+            if move_detail['generation']['name'] == 'generation-i':
+                new_move = Move(
+                    nombre=move_detail['name'],
+                    type_move_id=move_type_map[move_detail['type']['name']]
+                )
+                db.session.add(new_move)
+                db.session.flush()
+                move_map[move_detail['name']] = new_move.id
+                print(f"Added Move: {move_detail['name']} (Type: {move_detail['type']['name']})")
+        db.session.commit()
+
+        # Create a set to store unique abilities
+        ability_map = {}  # To store ability_name: ability_id mapping
+
+        # Seed Pokemon and their abilities
+        print("\nSeeding Pokemon, Abilities, and Relationships...")
+        pokemon_response = requests.get('https://pokeapi.co/api/v2/pokemon?limit=151')
+        pokemon_data = pokemon_response.json()['results']
+        
+        for poke_url in pokemon_data:
+            poke_detail = requests.get(poke_url['url']).json()
+            
+            print(f"\nProcessing Pokemon: {poke_detail['name'].upper()}")
+            
+            # Get the front_default sprite URL
+            sprite_url = poke_detail['sprites']['front_default']
+            
+            # Create Pokemon instance with only required fields
+            new_pokemon = Pokemon(
+                nombre=poke_detail['name'],
+                sprite=sprite_url
+            )
+            db.session.add(new_pokemon)
+            db.session.flush()
+
+            # Add types
+            print("Types:", end=" ")
+            for type_data in poke_detail['types']:
+                type_id = type_map[type_data['type']['name']]
+                stmt = pokemon_type.insert().values(
+                    pokemon_id=new_pokemon.id,
+                    type_pkm_id=type_id
+                )
+                db.session.execute(stmt)
+                print(type_data['type']['name'], end=" ")
+            print()
+
+            # Add moves
+            print("Moves:", end=" ")
+            for move_data in poke_detail['moves'][:4]:
+                move_name = move_data['move']['name']
+                if move_name in move_map:
+                    stmt = pokemon_move.insert().values(
+                        pokemon_id=new_pokemon.id,
+                        move_id=move_map[move_name]
+                    )
+                    db.session.execute(stmt)
+                    print(move_name, end=" ")
+            print()
+
+            # Add abilities
+            print("Abilities:", end=" ")
+            for ability_data in poke_detail['abilities']:
+                ability_name = ability_data['ability']['name']
+                
+                # If ability doesn't exist, create it
+                if ability_name not in ability_map:
+                    ability_detail = requests.get(ability_data['ability']['url']).json()
+                    new_ability = Ability(nombre=ability_name)
+                    db.session.add(new_ability)
+                    db.session.flush()
+                    ability_map[ability_name] = new_ability.id
+                    print(f"[NEW] {ability_name}", end=" ")
+                else:
+                    print(ability_name, end=" ")
+
+                # Add ability to pokemon
+                stmt = pokemon_ability.insert().values(
+                    pokemon_id=new_pokemon.id,
+                    ability_id=ability_map[ability_name]
+                )
+                db.session.execute(stmt)
+            print()
+
+            db.session.commit()
+            print(f"Sprite URL: {sprite_url}")
+            print("-" * 50)
+
+        print("\nSeeding completed successfully!")
 
 if __name__ == "__main__":
     seed_db()
