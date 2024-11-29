@@ -41,7 +41,7 @@ Sobre la carpeta /fe
 ## Problemas comunes
 
 Si no puedes activar el Enviorement del Python y tienes un error con el ExecutionPolicy debe ejecutar uno de los siguientes comandos en el Powershell:
-- **Set-ExecutionPolicy Unrestricted -Scope CurrentUser**
-- **Set-ExecutionPolicy Unrestricted -Scope Process**
+- - **Set-ExecutionPolicy Unrestricted -Scope CurrentUser**
+- - **Set-ExecutionPolicy Unrestricted -Scope Process**
 - Luego puede volver a reestablecerlo con el siguiente comando **set-executionpolicy remotesigned**
 - Ahora solamente debe de utilizar en la terminal de visual code lo siguiente **./activate**
