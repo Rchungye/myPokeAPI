@@ -1,10 +1,7 @@
-from app import app, db
-from datetime import datetime
-
+from app import db
 from datetime import datetime
 from app.Models.Move import Move, TypeMove, pokemon_move
 from app.Models.Ability import Ability, pokemon_ability
-from app.Models.Region import Region
 
 
 pokemon_type = db.Table('pokemon_type',
@@ -43,7 +40,6 @@ class Pokemon(db.Model):
     special_defense = db.Column(db.Integer, nullable=False)
     speed = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Float, nullable=False)
-    region_id = db.Column(db.Integer, db.ForeignKey('region.id'), nullable=False)
     created_at = db.Column(db.DateTime(), nullable=False, default=datetime.now())
     updated_at = db.Column(db.DateTime(), nullable=False, default=datetime.now(), onupdate=datetime.now())
     moves = db.relationship('Move', secondary=pokemon_move, back_populates='pokemons')
@@ -61,7 +57,6 @@ class Pokemon(db.Model):
             "special_defense": self.special_defense,
             "speed": self.speed,
             "weight": self.weight,
-            "region": self.region.as_dict(),
             "moves": [move.as_dict() for move in self.moves],
             "abilities": [ability.as_dict() for ability in self.abilities],
             "types": [type.as_dict() for type in self.types],

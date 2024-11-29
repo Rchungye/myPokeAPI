@@ -1,6 +1,6 @@
 from functools import wraps
 import os
-from flask import Flask
+from flask import Flask, Blueprint
 from app.config import config
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -20,5 +20,14 @@ db = SQLAlchemy(app)
 Migrate(app, db)
 CORS(app, supports_credentials=True)
 
-app.config["SECURITY_TRACKABLE"] = True
-app.config["SECRET_KEY"] = os.getenv("SKEY")
+from app.routes.AbilityRoute import *
+from app.routes.MoveRoute import *
+from app.routes.PkmRoute import *
+
+
+@app.cli.command()
+def seed():
+        """Add seed data to the database."""
+        from seed_inicial import seed_db
+        seed_db()
+
