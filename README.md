@@ -20,6 +20,9 @@ Sobre la carpeta /be
 - Crear un virtual Enviorement en la raiz de la ruta con el comando **python -m venv nombre_del_venv**
 - Situarse sobre la ruta del Virtual Enviorement con el comando **nombre_del_venv/Scripts/activate**
 - Instalar las dependencias del proyecto Flask con el comando **pip install -r requirements.txt**
+- Cree un archivo **.env** en la raíz del proyecto con la siguiente estructura:
+- - **DB_CONN = "mysql+pymysql://root:.Ratch326985@127.0.0.1/mypokeapi"**
+- - Reemplaza user, password, host y puerto según tu configuración de MySQL.
 - De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
 - Ejecutar el comando **flask db init** para preparar la migracion.
 - Ejecutar el comando **flask db migrate** para correr la migracion.
@@ -34,6 +37,9 @@ Estos son los pasos y comandos que debes correr al momento de clonar el proyecto
 
 Sobre la carpeta /fe
 - Ejecutar el comando **cd .fe** para acceder al directorio del frontend.
+- Crear un archivo .env en la raíz del proyecto con la siguiente estructura:
+- - **VITE_BE_URL=http://192.168.0.0:5001**
+- - Reemplaza la URL con la que obtuviste al ejecutar el backend.
 - Correr el comando **npm i** para instalar todas las dependencias node modules.
 - Correr el comando **npm run dev** para preparar los componentes Vite + React.js y permanecer escuchando los cambios sobre los componentes de React.js
 - Ya se debería tener el Frontend ejecutado.

@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -8,7 +9,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     # DEV
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:.Ratch326985@127.0.0.1/mypokeapi"
+    SQLALCHEMY_DATABASE_URI = os.getenv("DB_CONN")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
