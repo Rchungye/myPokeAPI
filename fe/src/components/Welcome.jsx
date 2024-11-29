@@ -1,29 +1,159 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import logo from '../assets/Fridge_logo.png'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
+import * as PkmService from '../services/PkmService';
 
 function Welcome() {
   const navigate = useNavigate();
+  const [pokemons, setPokemons] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPokemons = async () => {
+      setLoading(true);
+      try {
+        const response = await PkmService.GetAllPokemon();
+        console.log('API Response:', response);
+
+        if (Array.isArray(response)) {  // Verificamos si es un array
+          console.log('Pokemon Data:', response);
+          setPokemons(response);  // Guardamos el array directamente
+        } else {
+          console.log('Unexpected response format:', response);
+        }
+      } catch (error) {
+        console.error('Error fetching pokemon:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPokemons();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box className="min-h-screen flex items-center justify-center bg-white">
+        <CircularProgress
+          size={60}
+          thickness={4}
+          sx={{ color: '#285D85' }}
+        />
+      </Box>
+    );
+  }
 
   return (
-    <div className="flex flex-col items-center justify-between h-screen bg-white pb-40">
-      <div className="flex flex-col items-center mt-12">
-        <img src={logo} alt="Logo" className="h-64 mb-2" />
-        <h1 className="text-6xl font-bold text-[#285D85] font-patua mb-1">
-          ExpiryPal
+    <div className="min-h-screen bg-white p-8">
+      <div className="flex flex-col items-center mb-12">
+        <h1 className="text-6xl font-bold text-[#285D85] font-patua mb-8">
+          Poke API
         </h1>
-        <p className="text-[#285D85] font-poppins text-xl font-bold">
-          Stay fresh, Stay cool.
-        </p>
       </div>
-      <button
-        onClick={() => navigate("/fridge/groceries")}
-        className="bg-[#285D85] text-white font-poppins text-2xl py-5 px-12 rounded-lg shadow-md hover:bg-[#214a68] transition duration-200"
-      >
-        Tap to Connect
-      </button>
+
+      {(!pokemons || pokemons.length === 0) && (
+        <div className="text-center text-gray-600">
+          <Typography variant="h6">
+            No Pokemon data available
+          </Typography>
+        </div>
+      )}
+
+      <Grid container spacing={4} justifyContent="center">
+        {pokemons && pokemons.map((pokemon) => (
+          <Grid item xs={12} sm={6} md={4} lg={3} key={pokemon.id}>
+            <Card
+              sx={{ height: '100%' }}
+              className="hover:shadow-xl transition-shadow duration-300"
+            >
+              <CardMedia
+                component="img"
+                height="200"
+                image={pokemon.sprite}
+                alt={pokemon.nombre}
+                sx={{
+                  objectFit: 'contain',
+                  padding: '1rem',
+                  backgroundColor: '#f5f5f5',
+                  height: 200
+                }}
+              />
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  gutterBottom
+                  className="capitalize text-center font-bold text-[#285D85]"
+                >
+                  {pokemon.nombre}
+                </Typography>
+
+                {/* Types */}
+                <div className="flex gap-2 justify-center mb-3">
+                  {pokemon.types.map((type, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800"
+                    >
+                      {type.nombre}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Abilities */}
+                <Typography variant="subtitle1" className="font-medium mb-2">
+                  Abilities:
+                </Typography>
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {pokemon.abilities.map((ability, index) => (
+                    <span
+                      key={index}
+                      className="px-2 py-1 text-sm bg-gray-100 rounded"
+                    >
+                      {ability.nombre}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Moves */}
+                <Typography variant="subtitle1" className="font-medium mb-2">
+                  Moves:
+                </Typography>
+                <div className="flex flex-wrap gap-1">
+                  {pokemon.moves.slice(0, 4).map((move, index) => (
+                    <span
+                      key={index}
+                      className="px-2 py-1 text-sm bg-gray-100 rounded"
+                    >
+                      {move.nombre}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+
+              <CardActions className="justify-center pb-4">
+                <Button
+                  size="small"
+                  variant="contained"
+                  className="bg-[#285D85] hover:bg-[#214a68]"
+                  onClick={() => console.log('Details for:', pokemon.nombre)}
+                >
+                  Learn More
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 }
 
-export default Welcome
+export default Welcome;
