@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import logo from '../assets/PokeAPI_logo.png'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -54,9 +55,7 @@ function Welcome() {
   return (
     <div className="min-h-screen bg-white p-8">
       <div className="flex flex-col items-center mb-12">
-        <h1 className="text-6xl font-bold text-[#285D85] font-patua mb-8">
-          Poke API
-        </h1>
+        <img src={logo} alt="PokeAPI Logo" className="h-32 w-auto mb-8" />
       </div>
 
       {(!pokemons || pokemons.length === 0) && (
