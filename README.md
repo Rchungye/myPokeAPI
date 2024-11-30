@@ -21,7 +21,7 @@ Sobre la carpeta /be
 - Situarse sobre la ruta del Virtual Enviorement con el comando **.\nombre_del_venv\Scripts\activate**
 - Instalar las dependencias del proyecto Flask con el comando **pip install -r .\requirements.txt**
 - Cree un archivo **.env** en la raíz del proyecto con la siguiente estructura:
-- - **DB_CONN = "mysql+pymysql://user:password@192.168.0.0:3306/mypokeapi"**
+- - **DB_CONN = "mysql+pymysql://user:password@127.0.0.1:3306/mypokeapi"**
 - - Reemplaza user, password, host y puerto según tu configuración de MySQL.
 - De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
 - Ejecutar el comando **flask db init** para preparar la migracion.
