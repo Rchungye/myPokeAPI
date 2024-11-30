@@ -18,8 +18,8 @@ Estos son los pasos y comandos que debes correr al momento de clonar el proyecto
 Sobre la carpeta /be
 - Ejecutar el comando **cd be** para acceder al directorio del backend.
 - Crear un virtual Enviorement en la raiz de la ruta con el comando **python -m venv nombre_del_venv**
-- Situarse sobre la ruta del Virtual Enviorement con el comando **nombre_del_venv/Scripts/activate**
-- Instalar las dependencias del proyecto Flask con el comando **pip install -r requirements.txt**
+- Situarse sobre la ruta del Virtual Enviorement con el comando **.\nombre_del_venv\Scripts\activate**
+- Instalar las dependencias del proyecto Flask con el comando **pip install -r .\requirements.txt**
 - Cree un archivo **.env** en la raíz del proyecto con la siguiente estructura:
 - - **DB_CONN = "mysql+pymysql://user:password@192.168.0.0:3306/mypokeapi"**
 - - Reemplaza user, password, host y puerto según tu configuración de MySQL.
