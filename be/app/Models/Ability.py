@@ -12,7 +12,7 @@ class Ability(db.Model):
     __tablename__ = "ability"
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(20), nullable=False)
-    pokemons = db.relationship('Pokemon', secondary=pokemon_ability, back_populates='abilities')  # This matches now
+    pokemons = db.relationship('Pokemon', secondary=pokemon_ability, back_populates='abilities')
 
     def as_dict(self):
         return{

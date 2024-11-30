@@ -29,7 +29,7 @@ class Pokemon(db.Model):
     nombre = db.Column(db.String(20), nullable=False)
     sprite  = db.Column(db.String(255), nullable=False)
     moves = db.relationship('Move', secondary=pokemon_move, back_populates='pokemons')
-    abilities = db.relationship('Ability', secondary=pokemon_ability, back_populates='pokemons')  # Changed this line
+    abilities = db.relationship('Ability', secondary=pokemon_ability, back_populates='pokemons')
     types = db.relationship('TypePkm', secondary=pokemon_type, back_populates='pokemons')
 
     def as_dict(self):
