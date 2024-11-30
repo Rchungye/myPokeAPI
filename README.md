@@ -37,7 +37,7 @@ Estos son los pasos y comandos que debes correr al momento de clonar el proyecto
 
 Sobre la carpeta /fe
 - Ejecutar el comando **cd fe** para acceder al directorio del frontend.
-- Crear un archivo .env en la raíz del proyecto con la siguiente estructura:
+- Crear un archivo **.env** en la raíz del proyecto con la siguiente estructura:
 - - **VITE_BE_URL=your_backend_url_here**
 - - Reemplaza la URL con la que obtuviste al ejecutar el backend.
 - Correr el comando **npm i** para instalar todas las dependencias node modules.
