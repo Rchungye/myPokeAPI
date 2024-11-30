@@ -1,7 +1,7 @@
 from app import db
 from datetime import datetime
-from app.Models.Move import Move, TypeMove, pokemon_move
-from app.Models.Ability import Ability, pokemon_ability
+from app.models.Move import Move, TypeMove, pokemon_move
+from app.models.Ability import Ability, pokemon_ability
 
 
 pokemon_type = db.Table('pokemon_type',

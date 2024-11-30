@@ -1,7 +1,7 @@
 from app import app
 import json
 from flask import jsonify, request
-from app.Controllers import (
+from app.controllers import (
     MoveController as Move,
 )
 

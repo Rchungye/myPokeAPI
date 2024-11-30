@@ -2,7 +2,7 @@
 from . import ControllerObject
 from datetime import datetime, date
 from app import app, db
-from app.Models.Pkm import Pokemon
+from app.models.Pkm import Pokemon
 
 
 def GetAllPkm():

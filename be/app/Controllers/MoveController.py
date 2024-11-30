@@ -1,7 +1,7 @@
 from . import ControllerObject
 from datetime import datetime, date
 from app import app, db
-from app.Models.Move import Move
+from app.models.Move import Move
 
 def GetAllMove():
     moves = Move.query.all()
