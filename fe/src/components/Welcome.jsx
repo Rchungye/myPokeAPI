@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import logo from '../assets/PokeAPI_logo.png';
+import logo from '../assets/PokeAPI_logo.svg';
 import noFound from '../assets/DectectivePikachu.png';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
