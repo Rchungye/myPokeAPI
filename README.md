@@ -15,7 +15,7 @@ Este proyecto utiliza datos de la la pagina **[PokeAPI.co](https://pokeapi.co/)*
 
 Estos son los pasos y comandos que debes correr al momento de clonar el proyecto:
 
-Sobre la carpeta /be
+Sobre la carpeta `/be`
 - Ejecuta el siguiente comando para acceder al directorio del backend
     ```sh
     cd .\be\
@@ -32,12 +32,12 @@ Sobre la carpeta /be
     ```sh
     pip install -r .\requirements.txt
     ```
-- Cree un archivo **.env** en la raíz del proyecto con la siguiente estructura:
+- Cree un archivo `**.env**` en la raíz del proyecto con la siguiente estructura:
     ```sh
     DB_CONN = "mysql+pymysql://user:password@127.0.0.1:3306/mypokeapi"
     # Reemplaza user, password, host y puerto según tu configuración de MySQL.
     ```
-- De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
+> - De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
 - Ejecuta el siguiente comando para preparar la migracion.
     ```sh
     flask db init
@@ -64,12 +64,12 @@ Sobre la carpeta /be
 
 Estos son los pasos y comandos que debes correr al momento de clonar el proyecto:
 
-Sobre la carpeta /fe
+Sobre la carpeta `/fe`
 - Ejecuta el siguiente comando para acceder al directorio del frontend.
     ```sh
     cd .\fe\
     ```
-- Crear un archivo **.env** en la raíz del proyecto con la siguiente estructura:
+- Crear un archivo `**.env**` en la raíz del proyecto con la siguiente estructura:
     ```sh
     VITE_BE_URL=your_backend_url_here
     # Reemplaza la URL con la que obtuviste al ejecutar el backend.
@@ -106,26 +106,3 @@ Sobre la carpeta /fe
 
 - **[Enlace del documento](https://utpac-my.sharepoint.com/:b:/g/personal/rafael_chung_utp_ac_pa/EdKbnyhU85ZItu9Fm5Yg9H8Bwng1WAuUzOSxTRAWL5A5Ng?e=kLME2q)**
 - **[Enlace de la presentacion](https://utpac-my.sharepoint.com/:p:/g/personal/rafael_chung_utp_ac_pa/EbEsPVXJvr5PnwQwgDPeiRAB2w4rSk-gYPsPh03vAcj0nw?e=bBTTar)**
-
-
-
-> Esto es un bloque destacado como cita.
-
-
-- **Importante**: Lee esto primero.
-- *Nota*: Considera esto antes de continuar.
-
-
-
-# Título principal
-## Subtítulo
-### Sección destacada
-
-
-
-Usa el comando `npm install` para instalar las dependencias.
-
-
-
-```javascript
-console.log('Hola, mundo');
