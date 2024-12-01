@@ -107,3 +107,25 @@ Sobre la carpeta /fe
 - **[Enlace del documento](https://utpac-my.sharepoint.com/:b:/g/personal/rafael_chung_utp_ac_pa/EdKbnyhU85ZItu9Fm5Yg9H8Bwng1WAuUzOSxTRAWL5A5Ng?e=kLME2q)**
 - **[Enlace de la presentacion](https://utpac-my.sharepoint.com/:p:/g/personal/rafael_chung_utp_ac_pa/EbEsPVXJvr5PnwQwgDPeiRAB2w4rSk-gYPsPh03vAcj0nw?e=bBTTar)**
 
+
+
+> Esto es un bloque destacado como cita.
+
+
+- **Importante**: Lee esto primero.
+- *Nota*: Considera esto antes de continuar.
+
+
+
+# Título principal
+## Subtítulo
+### Sección destacada
+
+
+
+Usa el comando `npm install` para instalar las dependencias.
+
+
+
+```javascript
+console.log('Hola, mundo');
