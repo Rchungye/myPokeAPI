@@ -91,9 +91,6 @@ Si no puedes activar el Enviorement del Python y tienes un error con el Executio
     ```sh
     # Escoja cualquiera de los siguientes
     Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-    ```
-
-    ```sh
     Set-ExecutionPolicy Unrestricted -Scope Process
     ```
 - Luego puede volver a reestablecerlo con el siguiente comando
