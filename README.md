@@ -37,7 +37,7 @@ Sobre la carpeta `/be`
     DB_CONN = "mysql+pymysql://user:password@127.0.0.1:3306/mypokeapi"
     # Reemplaza user, password, host y puerto según tu configuración de MySQL.
     ```
-> - De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
+> De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
 - Ejecuta el siguiente comando para preparar la migracion.
     ```sh
     flask db init
