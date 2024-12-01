@@ -89,10 +89,8 @@ Sobre la carpeta /fe
 Si no puedes activar el Enviorement del Python y tienes un error con el ExecutionPolicy debe ejecutar uno de los siguientes comandos en el Powershell:
 
     ```sh
+    # Escoja cualquiera de los siguientes comandos
     Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-    ```
-
-    ```sh
     Set-ExecutionPolicy Unrestricted -Scope Process
     ```
 - Luego puede volver a reestablecerlo con el siguiente comando
