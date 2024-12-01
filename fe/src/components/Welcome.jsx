@@ -41,7 +41,11 @@ function Welcome() {
 
   if (loading) {
     return (
-      <Box className="min-h-screen flex items-center justify-center bg-white">
+      <Box className="min-h-screen flex items-center justify-center"
+        sx={{
+          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+          backgroundColor: 'rgba(128, 128, 128, 0.5)', zIndex: 9999
+        }}>
         <CircularProgress size={60} thickness={4} sx={{ color: '#285D85' }} />
       </Box>
     );
@@ -58,8 +62,8 @@ function Welcome() {
         <Card className="mx-auto max-w-md p-4">
           <CardMedia component="img" height="300" image={noFound} alt="No Pokemon Found" className="object-contain" />
           <CardContent className="text-center">
-            <Typography variant="h6" component="h1" className="font-bold text-xl">
-              Ups, no se encontró a ningún Pokémon
+            <Typography variant="h4" className="font-bold text-xl">
+              Ups, no se encontró a ningún Pokémon.
             </Typography>
           </CardContent>
         </Card>
