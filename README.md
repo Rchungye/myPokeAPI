@@ -32,7 +32,7 @@ Sobre la carpeta `/be`
     ```sh
     pip install -r .\requirements.txt
     ```
-- Cree un archivo `**.env**` en la raíz del proyecto con la siguiente estructura:
+- Cree un archivo `.env` en la raíz del proyecto con la siguiente estructura:
     ```sh
     DB_CONN = "mysql+pymysql://user:password@127.0.0.1:3306/mypokeapi"
     # Reemplaza user, password, host y puerto según tu configuración de MySQL.
@@ -69,7 +69,7 @@ Sobre la carpeta `/fe`
     ```sh
     cd .\fe\
     ```
-- Crear un archivo `**.env**` en la raíz del proyecto con la siguiente estructura:
+- Crear un archivo `.env` en la raíz del proyecto con la siguiente estructura:
     ```sh
     VITE_BE_URL=your_backend_url_here
     # Reemplaza la URL con la que obtuviste al ejecutar el backend.
