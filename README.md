@@ -86,7 +86,7 @@ Sobre la carpeta /fe
 
 ## Problemas comunes
 
-Si no puedes activar el Enviorement del Python y tienes un error con el ExecutionPolicy debe ejecutar uno de los siguientes comandos en el Powershell:
+- Si no puedes activar el Enviorement del Python y tienes un error con el ExecutionPolicy debe ejecutar uno de los siguientes comandos en el Powershell:
 
     ```sh
     # Escoja cualquiera de los siguientes
