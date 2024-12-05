@@ -34,8 +34,8 @@ Sobre la carpeta `/be`
     ```
 - Cree un archivo `.env` en la raíz del proyecto con la siguiente estructura:
     ```sh
-    DB_CONN = "mysql+pymysql://user:password@127.0.0.1:3306/mypokeapi"
-    # Reemplaza user, password, host y puerto según tu configuración de MySQL.
+    DB_CONN = "mysql+pymysql://user:password@host:port/mypokeapi"
+    # Reemplaza user, password, host y port según tu configuración de MySQL.
     ```
 > De ser necesario, borrar la carpeta migrations (solo si no le corre la migracion bien).
 - Ejecuta el siguiente comando para preparar la migracion.
