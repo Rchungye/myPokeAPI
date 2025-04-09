@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
 import * as PkmService from '../services/PkmService';
+import Swal from 'sweetalert2';  // Importamos SweetAlert2
 
 function Welcome() {
   const navigate = useNavigate();
@@ -26,11 +27,26 @@ function Welcome() {
         if (Array.isArray(response)) {  // Verificamos si es un array
           console.log('Pokemon Data:', response);
           setPokemons(response);  // Guardamos el array directamente
+          Swal.fire({
+            icon: 'success',
+            title: 'Se encontraron Pokémon',
+            text: 'Se encontraron los primeros 151 Pokémon.',
+          });
         } else {
           console.log('Unexpected response format:', response);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hubo un problema al obtener los Pokémon.',
+          });
         }
       } catch (error) {
         console.error('Error fetching pokemon:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No se pudo conectar con la API de Pokémon.',
+        });
       } finally {
         setLoading(false);
       }
@@ -73,18 +89,18 @@ function Welcome() {
       <Grid container spacing={4} justifyContent="center">
         {pokemons && pokemons.map((pokemon) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={pokemon.id}>
-            <Card sx={{ height: '100%' }} className="hover:shadow-xl transition-shadow duration-300"            >
+            <Card sx={{ height: '100%' }} className="hover:shadow-xl transition-shadow duration-300">
               <CardMedia component="img" height="200" image={pokemon.sprite} alt={pokemon.nombre}
                 sx={{ objectFit: 'contain', padding: '1rem', backgroundColor: '#f5f5f5', height: 200 }} />
               <CardContent>
-                <Typography variant="h5" gutterBottom className="capitalize text-center font-bold text-[#285D85]"                >
+                <Typography variant="h5" gutterBottom className="capitalize text-center font-bold text-[#285D85]">
                   {pokemon.nombre}
                 </Typography>
 
                 {/* Types */}
                 <div className="flex gap-2 justify-center mb-3">
                   {pokemon.types.map((type, index) => (
-                    <span key={index} className="px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800"                    >
+                    <span key={index} className="px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800">
                       {type.nombre}
                     </span>
                   ))}
@@ -96,7 +112,7 @@ function Welcome() {
                 </Typography>
                 <div className="flex flex-wrap gap-1 mb-3">
                   {pokemon.abilities.map((ability, index) => (
-                    <span key={index} className="px-2 py-1 text-sm bg-gray-100 rounded"                    >
+                    <span key={index} className="px-2 py-1 text-sm bg-gray-100 rounded">
                       {ability.nombre}
                     </span>
                   ))}
@@ -108,7 +124,7 @@ function Welcome() {
                 </Typography>
                 <div className="flex flex-wrap gap-1">
                   {pokemon.moves.slice(0, 4).map((move, index) => (
-                    <span key={index} className="px-2 py-1 text-sm bg-gray-100 rounded"                    >
+                    <span key={index} className="px-2 py-1 text-sm bg-gray-100 rounded">
                       {move.nombre}
                     </span>
                   ))}
